@@ -1,0 +1,99 @@
+.atmBackground {
+    background-color: #787577;
+    height: 350px;
+    width: 800px;
+}
+
+.atmScreen {
+    background-color: #03355e;
+    color: black;
+    height: 350px;
+    width: 500px;
+    margin-left: 75px;
+    border-radius: 5px;
+}
+
+
+.hidden{
+    display: none
+}
+
+.atmB1{
+    top: 120px;
+}
+
+.atmB2{
+    top: 120px;
+}
+
+.atmButton2 {
+    background-color: #b5b7bd;
+    margin-top: 15px;
+    height: 35px;
+    width: 35px;
+}
+
+.atmButton {
+    background-color: #b5b7bd;
+    margin-top: 15px;
+    margin-left: 80px;
+    height: 35px;
+    width: 35px;
+}
+
+.atmKeypad {
+    position: absolute;
+    top: 370px;
+    background-color: #acabb0;
+    margin-left: 200px;
+    height: 250px;
+    width: 400px;
+}
+
+.numKey{
+    margin: 10px 3px 0 3px;
+    font-size: 10px;
+    height: 50px;
+    width: 50px;
+}
+
+.letterKey{
+    position: relative;
+    font-size: 8px;
+}
+
+.arrowKey{
+    font-size: 10px;
+}
+
+.keyButton{
+    margin: 10px 3px 0 3px;
+    font-size: 10px;
+    height: 50px;
+    width: 100px;
+}
+
+.input {
+    padding:10px;
+    font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
+.cancelColor {
+    color: red;
+}
+
+.clearColor {
+    color: yellow;
+}
+
+.enterColor {
+    color: green;
+}
+
+.optionRow {
+    position: relative;
+    margin-left: 50px;
+}

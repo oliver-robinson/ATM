@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BankCorp ATM</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<body>
+    <div class="atmBackground container">
+        <div class="row">
+            <div class="atmB1 col-sm-1">
+                <button class="atmButton atmOption" id="atmOption4"></button>
+                <button class="atmButton atmOption" id="atmOption5"></button>
+                <button class="atmButton atmOption" id="atmOption6"></button>
+                <button class="atmButton atmOption" id="atmOption7"></button>
+            </div>
+            <!--ATM Dashboard-->
+            <div class="atmScreen col-sm-10">
+                <div class="display">
+                    <button onclick="enterPin()">Start</button>
+                </div>
+                <div class="display">
+                    <h1>Welcome</h1>
+                    <p>Enter your PIN</p>
+                    <input id='pinCode'></input>
+                </div>
+                <div class="display">
+                    <p>Please select one of the following</p>
+                </div>
+                <div class="display">
+                    <p>Select an account</p>
+                </div>
+                <div class="display">
+                    <p>Enter the amount you want to deposit deposited and then enter your deposit.</p>
+                    <input id='cashDeposit'></input>
+                    <div id="output"></div>
+                </div>
+                <div class="display">
+                    <p>Your deposit has been canceled.  Please witdraw your money from the dispensery.  Would you like to make another transaction?</p>
+                </div>
+                <div class="display">
+                    <p>How much would you like to withdraw?</p>
+                    <div id="output1"></div>
+                </div>
+                <div class="display">
+                    <div id="output2"></div>
+                </div>
+                <div class="display">
+                    <p>Would you like to make another transaction?</p>
+                </div>
+                <div class="display">
+                    <p>Thank you, please come again.</p>
+                </div>
+            </div>
+            <div class="atmB2 col-sm-1">
+                <button class="atmButton2 atmOption" id="atmOption0"></button>
+                <button class="atmButton2 atmOption" id="atmOption1"></button>
+                <button class="atmButton2 atmOption" id="atmOption2"></button>
+                <button class="atmButton2 atmOption" id="atmOption3"></button>
+            </div>
+        </div>
+    </div>
+    <div class="atmBackground container">
+        <div class="row">
+            <div class="atmKeypad col-sm-8">
+                <div class="col-sm-7 offset-sm-1">
+                    <button data-key="1" class="numKey">1</button>
+                    <button data-key="2" class="numKey">2</button>
+                    <button data-key="3" class="numKey">3</button>
+                    <button data-key="4" class="numKey">4</button>
+                    <button data-key="5" class="numKey">5</button>
+                    <button data-key="6" class="numKey">6</button>
+                    <button data-key="7" class="numKey">7</button>
+                    <button data-key="8" class="numKey">8</button>
+                    <button data-key="9" class="numKey">9</button>
+                    <button class="numKey"><span class="arrowKey"><i class="fas fa-arrow-alt-circle-left"></i></span></button>
+                    <button data-key="0" class="numKey">0</button>
+                    <button class="numKey"><span class="arrowKey"><i class="fas fa-arrow-alt-circle-right"></i></span></button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="keyButton" onclick="del()">CANCEL <i class="cancelColor fas fa-ban"></i></button>
+                    <button class="keyButton" onclick="clearAll()">CLEAR <i class="clearColor fas fa-eraser"></i></button>
+                    <button class="keyButton" onclick="next()">ENTER <i class="enterColor far fa-check-circle"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var users = [
+            {
+                firstName: 'Johnny',
+                lastName: 'Does',
+                pin: 1234,
+                balance: {
+                    Checking: 600,
+                    Savings: 300
+                }
+            },
+            {
+                firstName: 'Jane',
+                lastName: 'Doe',
+                pin: 5678,
+                balance: {
+                    Checking: 250,
+                    Savings: 1000
+                }
+            }
+        ] 
+        var userAccount = " ";
+        var screen = "pin"
+        var display = document.querySelectorAll(".display");
+        var output = document.getElementById("output");
+        var numPad = document.querySelectorAll('.numKey');
+        display[1].classList.add("hidden");
+        display[2].classList.add("hidden");
+        display[3].classList.add("hidden");
+        display[4].classList.add("hidden");
+        display[5].classList.add("hidden");
+        display[6].classList.add("hidden");
+        display[7].classList.add("hidden");
+        display[8].classList.add("hidden");
+        display[9].classList.add("hidden");
+        for (let index = 0; index < numPad.length; index++) {
+            const keyNum = numPad[index];
+            keyNum.addEventListener('click', keyPad);  
+        }
+        function keyPad(){
+            var key = event.target.dataset.key;
+            if(screen == "pin" ){
+                var cardInput = document.getElementById("pinCode");
+                cardInput.value += key;
+            }
+            if (screen == "depositMoney") {
+                var cashInput = document.getElementById("cashDeposit");
+                cashInput.value += key;
+            }
+        }
+
+        function enterPin(){
+            screen = "pin";
+            display[9].classList.add("hidden");
+            display[0].classList.add("hidden");
+            display[1].classList.remove("hidden");
+            var submitCode = document.getElementById("atmOption3");
+            submitCode.onclick = enterPin;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = " ";
+            document.getElementById("atmOption3").innerHTML = "Submit Pin";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+            var pinRecords = [];
+            pininput = Number(document.getElementById("pinCode").value);
+            users.forEach(element => {
+                pinRecords.push(element.pin)
+            });
+            for (let index = 0; index < pinRecords.length; index++) {
+                const cardNum = pinRecords[index];
+                if (pininput == cardNum) {
+                    userAccount = users.find(users => users.pin == pininput);
+                    Dashboard();
+                    return true;
+                } else {
+                    alert("Invalid Pin")
+                    return false;
+                }
+            }       
+        }
+
+        function Dashboard(){
+            display[8].classList.add("hidden");
+            display[1].classList.add("hidden");
+            display[2].classList.remove("hidden");
+            var deposit = document.getElementById("atmOption1");
+            var withdrawl = document.getElementById("atmOption2");
+            var balance = document.getElementById("atmOption3");
+            deposit.onclick = depositBoard;
+            withdrawl.onclick = withdrawlBoard;
+            balance.onclick = balanceInquiry;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = "Deposit";
+            document.getElementById("atmOption2").innerHTML = "Withdrawl";
+            document.getElementById("atmOption3").innerHTML = "Balance Inquiry";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+        
+        function depositBoard(){
+            screen = "depositMoney";
+            display[5].classList.add("hidden");
+            display[2].classList.add("hidden");
+            display[3].classList.remove("hidden");
+            var depositChecking = document.getElementById("atmOption2");
+            var depositSavings = document.getElementById("atmOption3");
+            depositChecking.onclick = depositCheck;
+            depositSavings.onclick = depositSaving;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = "Checking";
+            document.getElementById("atmOption3").innerHTML = "Savings";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+        /*Deposit Screens*/
+        function depositCheck(){
+            display[3].classList.add("hidden");
+            display[4].classList.remove("hidden");
+            cashInput = Number(document.getElementById("cashDeposit").value);
+            userAccount.balance.Checking = userAccount.balance.Checking + cashInput;
+            output.innerHTML = "<p>Your balance is: </p>" +userAccount.balance.Checking;
+            var next = document.getElementById("atmOption3");
+            next.onclick = depositOptions;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = " ";
+            document.getElementById("atmOption3").innerHTML = "Next";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }    
+
+        function depositSaving(){
+            display[3].classList.add("hidden");
+            display[4].classList.remove("hidden");
+            cashInput = Number(document.getElementById("cashDeposit").value);
+            userAccount.balance.Savings = userAccount.balance.Savings + cashInput;
+            output.innerHTML = "<p>Your balance is: " +userAccount.balance.Savings;
+            var next = document.getElementById("atmOption3");
+            next.onclick = depositOptions;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = " ";
+            document.getElementById("atmOption3").innerHTML = "Next";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+
+        function depositOptions(){ 
+            display[4].classList.add("hidden");
+            display[2].classList.remove("hidden");
+            var depositAgain = document.getElementById("atmOption1");
+            var completeDeposit = document.getElementById("atmOption2");
+            var cancelDeposit = document.getElementById("atmOption3");
+            depositAgain.onclick = depositBoard;
+            completeDeposit.onclick = anotherTransaction;
+            cancelDeposit.onclick = depositCancel;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = "Deposit More";
+            document.getElementById("atmOption2").innerHTML = "Complete Deposit";
+            document.getElementById("atmOption3").innerHTML = "Cancel Deposit";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+        function depositCancel(){
+            display[2].classList.add("hidden");
+            display[5].classList.remove("hidden");
+            var yes = document.getElementById('atmOption2');
+            var no = document.getElementById('atmOption3');
+            yes.onclick = Dashboard;
+            no.onclick = thanks;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = "Yes";
+            document.getElementById("atmOption3").innerHTML = "No";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+        /*Withdrawl*/
+        function withdrawlBoard(){
+            display[2].classList.add("hidden");
+            display[3].classList.remove("hidden");
+            var withdrawlChecking = document.getElementById("atmOption2");
+            var withdrawlSavings = document.getElementById("atmOption3");
+            withdrawlChecking.onclick = withdrawlCheck;
+            withdrawlSavings.onclick = withdrawlSaving;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = "Checking";
+            document.getElementById("atmOption3").innerHTML = "Savings";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+        function withdrawlCheck(){
+            display[3].classList.add("hidden");
+            display[6].classList.remove("hidden");
+            var option0 = document.getElementById("atmOption0");
+            option0.onclick = function(){withdrawProcessCheck(100)};
+            var option1 = document.getElementById("atmOption1");
+            option1.onclick = function(){withdrawProcessCheck(120)};
+            var option2 = document.getElementById("atmOption2");
+            option2.onclick = function(){withdrawProcessCheck(200)};
+            var option3 = document.getElementById("atmOption3");
+            option3.onclick = function(){withdrawProcessCheck(400)};
+            var option4 = document.getElementById("atmOption4");
+            option4.onclick = function(){withdrawProcessCheck(20)};
+            var option5 = document.getElementById("atmOption5");
+            option5.onclick = function(){withdrawProcessCheck(40)};
+            var option6 = document.getElementById("atmOption6");
+            option6.onclick = function(){withdrawProcessCheck(60)};
+            var option7 = document.getElementById("atmOption7");
+            option7.onclick = function(){withdrawProcessCheck(80)};
+            document.getElementById("atmOption0").innerHTML = "$100";
+            document.getElementById("atmOption1").innerHTML = "$120";
+            document.getElementById("atmOption2").innerHTML = "$200";
+            document.getElementById("atmOption3").innerHTML = "$400";
+            document.getElementById("atmOption4").innerHTML = "$20";
+            document.getElementById("atmOption5").innerHTML = "$40";
+            document.getElementById("atmOption6").innerHTML = "$60";
+            document.getElementById("atmOption7").innerHTML = "$80";
+        }
+
+        function withdrawProcessCheck(value){
+            var output1 = document.getElementById("output1");
+            output1.innerHTML = "Your balance is: " +userAccount.balance.Checking;
+            userAccount.balance.Checking = userAccount.balance.Checking - value;
+            output1.innerHTML = "<p>You have witdrawn: " + value;
+            var done = document.getElementById("atmOption3");
+            done.onclick = anotherTransaction;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = " ";
+            document.getElementById("atmOption3").innerHTML = "Done";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+        function withdrawlSaving(){
+            display[3].classList.add("hidden");
+            display[6].classList.remove("hidden");
+            var option0 = document.getElementById("atmOption0");
+            option0.onclick = function(){withdrawProcessSavings(100)};
+            var option1 = document.getElementById("atmOption1");
+            option1.onclick = function(){withdrawProcessSavings(120)};
+            var option2 = document.getElementById("atmOption2");
+            option2.onclick = function(){withdrawProcessSavings(200)};
+            var option3 = document.getElementById("atmOption3");
+            option3.onclick = function(){withdrawProcessSavings(400)};
+            var option4 = document.getElementById("atmOption4");
+            option4.onclick = function(){withdrawProcessSavings(20)};
+            var option5 = document.getElementById("atmOption5");
+            option5.onclick = function(){withdrawProcessSavings(40)};
+            var option6 = document.getElementById("atmOption6");
+            option6.onclick = function(){withdrawProcessSavings(60)};
+            var option7 = document.getElementById("atmOption7");
+            option7.onclick = function(){withdrawProcessSavings(80)};
+            document.getElementById("atmOption0").innerHTML = "$100";
+            document.getElementById("atmOption1").innerHTML = "$120";
+            document.getElementById("atmOption2").innerHTML = "$200";
+            document.getElementById("atmOption3").innerHTML = "$400";
+            document.getElementById("atmOption4").innerHTML = "$20";
+            document.getElementById("atmOption5").innerHTML = "$40";
+            document.getElementById("atmOption6").innerHTML = "$60";
+            document.getElementById("atmOption7").innerHTML = "$80";
+        }
+
+        function withdrawProcessSavings(value){
+            var output1 = document.getElementById("output1");
+            console.log("I ran")
+            output1.innerHTML = "Your balance is: " +userAccount.balance.Savings;
+            userAccount.balance.Savings = userAccount.balance.Savings - value;
+            output1.innerHTML = "<p>You have witdrawn: " + value;
+            var done = document.getElementById("atmOption3");
+            done.onclick = anotherTransaction;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = " ";
+            document.getElementById("atmOption3").innerHTML = "Done";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+
+        /*Balance Inquiry*/
+        function balanceInquiry(){
+            display[2].classList.add("hidden");
+            display[7].classList.remove("hidden");
+            var output2 = document.getElementById("output2");
+            output2.innerHTML = "<p>Your checking balance is </p>" + userAccount.balance.Checking + "<br><p>Your savings balance is </p>" + userAccount.balance.Savings;
+            var next = document.getElementById("atmOption3");
+            next.onclick = anotherTransaction;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = " ";
+            document.getElementById("atmOption3").innerHTML = "Next";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+        /*End of Program*/
+        function anotherTransaction(){
+            display[2].classList.add("hidden");
+            display[6].classList.add("hidden");
+            display[7].classList.add("hidden");
+            display[8].classList.remove("hidden");
+            var yes = document.getElementById("atmOption2");
+            yes.onclick = Dashboard;
+            var no = document.getElementById("atmOption3");
+            no.onclick = thanks;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = "Yes";
+            document.getElementById("atmOption3").innerHTML = "No";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+
+        function thanks(){
+            display[2].classList.add("hidden");
+            display[5].classList.add("hidden");
+            display[8].classList.add("hidden");
+            display[9].classList.remove("hidden");
+            var home = document.getElementById("atmOption3");
+            home.onclick = enterPin;
+            document.getElementById("atmOption0").innerHTML = " ";
+            document.getElementById("atmOption1").innerHTML = " ";
+            document.getElementById("atmOption2").innerHTML = " ";
+            document.getElementById("atmOption3").innerHTML = "Home";
+            document.getElementById("atmOption4").innerHTML = " ";
+            document.getElementById("atmOption5").innerHTML = " ";
+            document.getElementById("atmOption6").innerHTML = " ";
+            document.getElementById("atmOption7").innerHTML = " ";
+        }
+    </script>
+</body>
+</html>

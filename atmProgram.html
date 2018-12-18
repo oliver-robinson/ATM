@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/atmStyle.css">
+    <title>ATM</title>
+</head>
+<body>
+    <h1 class="indent">ATM</h1>
+    
+    <h1 class="indent">Input Card</h1>
+    <ul>
+        <li>DISPLAY, "Please enter your card?"</li>
+        <li>INPUT your card</li>
+        <li>SET cardCheck equal to CALL checkCard to pass it</li>
+        <li>IF cardCheck returns True</li>
+        <li class="indent">Goes to PIN</li>
+        <li>IF cardCheck returns False</li>
+        <li class="indent">Goes to PIN and applies a fee</li>
+    </ul>
+
+    <h1 class="indent">Pin</h1>
+    <ul>
+        <li>Display, "Please enter your pin?"</li>
+        <li>INPUT your pin</li>
+        <li>SET pinCheck equal to CALL checkPin to pass it</li>
+        <li>IF pinCheck returns True</li>
+        <li class="indent">Goes to Dashboard</li>
+        <li>IF pinCheck returns False</li>
+        <li class="indent">DISPLAY, "Invalid pin please try again."</li>
+    </ul>
+
+    <h1 class="indent" id="dashBoard">Dashboard</h1>
+    <ul>
+        <li>DISPLAY, "Please select one of the following."</li>
+        <li>Deposit</li>
+        <li class="indent">DISPLAY, "Please select one of the following."</li>
+        <li class="indent">Checking</li>
+        <li class="indent">Savings</li>
+        <li class="indent">Set accountType</li>
+        <li>Witdrawal</li>
+        <li class="indent">DISPLAY, "Please select one of the following."</li>
+        <li class="indent">Checking</li>
+        <li class="indent">Savings</li>
+        <li class="indent">Set accountType</li>
+        <li>Balance Inquiry</li>
+        <li class="indent">DISPLAY, "Please select one of the following."</li>
+        <li class="indent">Checking</li>
+        <li class="indent">Savings</li>
+        <li class="indent">Set accountType</li>
+    </ul>
+
+    <h1 class="indent" id="depositCash">Deposit Cash</h1>
+    <ul>
+        <li>DISPLAY, "Please place your cash into the dispensery."</li>
+        <li>INPUT cashDeposit</li>
+        <li class="indent">DISPLAY, "This is the amount of cash deposited " cashDeposit ".  Would you like to make an?"</li>
+        <li class="indent-2x">Deposit More</li>
+        <li class="indent-3x">GOTO <a href="#depositCash">depositCash</a></li>
+        <li class="indent-2x">Complete Deposit</li>
+        <li class="indent-3x">DISPLAY, "Would you like to make another transaction?"</li>
+        <li class="indent-4x">Yes</li>
+        <li class="indent-5x">GOTO <a href="#dashBoard">Dashboard</a></li> 
+        <li class="indent-4x">No</li>
+        <li class="indent-5x">DISPLAY, "Would you like a reciept?</li>
+        <li class="indent-6x">Yes</li>
+        <li class="indent-7x">Prints Reciept.  DISPLAY, "Thank you, please come again."</li>
+        <li class="indent-6x">No</li>
+        <li class="indent-7x">DISPLAY, "Thank you, please come again."</li>
+        <li class="indent-2x">Cancel Deposit</li>
+        <li class="indent-3x">DISPLAY, "Your deposit has been canceled.  Please witdraw your money from the dispensery.  Would you like to make another transaction?"</li>
+        <li class="indent-4x">Yes</li>
+        <li class="indent-5x">GOTO <a href="#dashBoard">Dashboard</a></li>
+        <li class="indent-4x">No</li>
+        <li class="indent-5x">DISPLAY, "Thank you, please come again."</li>
+    </ul>
+
+    <h1 class="indent">Withdrawal</h1>
+    <ul>
+        <li>DISPLAY, "How much would you like to withdraw?"</li>
+        <li class="indent">$20</li>
+        <li class="indent">$40</li>
+        <li class="indent">$60</li>
+        <li class="indent">$80</li>
+        <li class="indent">$100</li>
+        <li class="indent">$120</li>
+        <li class="indent">$200</li>
+        <li class="indent">Other Amount</li>
+        <li class="indent-2x">DISPLAY, "Please take your withdraw from the dispensery.  Would you like to make another transaction?"</li>
+        <li class="indent-3x">Yes</li>
+        <li class="indent-4x">GOTO <a href="#dashBoard">Dashboard</a></li>
+        <li class="indent-3x">No</li>
+        <li class="indent-4x">DISPLAY, "Would you like a reciept?"</li>
+        <li class="indent-5x">Yes</li>
+        <li class="indent-6x">Prints Reciept.  DISPLAY, "Thank you, please come again."</li>
+        <li class="indent-5x">No</li>
+        <li class="indent-6x">DISPLAY, "Thank you, please come again."</li>
+    </ul>
+
+    <h1 class="indent">Balance Inquiry</h1>
+    <ul>
+        <li>DISPLAY, "Your balance is: "</li>
+        <li>DISPLAY, "Would you like to print out your balance?"</li>
+        <li class="indent">Yes</li>
+        <li class="indent">Prints out balance</li>
+        <li class="indent-2x">DISPLAY, "Would you like to maken anohter transaction?"</li>
+        <li class="indent-3x">Yes</li>
+        <li class="indent-4x">GOTO <a href="#dashBoard">Dashboard</a></li>
+        <li class="indent-3x">No</li>
+        <li class="indent-4x">DISPLAY, "Thank you, please come again."</li>
+        <li class="indent">No</li>
+        <li class="indent-2x">DISPLAY, "Would you like to maken anohter transaction?"</li>
+        <li class="indent-3x">Yes</li>
+        <li class="indent-4x">GOTO <a href="#dashBoard">Dashboard</a></li>
+        <li class="indent-3x">No</li>
+        <li class="indent-4x">DISPLAY, "Thank you, please come again."</li>
+    </ul>
+</body>
+</html>
