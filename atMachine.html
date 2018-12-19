@@ -111,7 +111,7 @@
                 }
             }
         ] 
-        var userAccount = " ";
+        var userAccount = "";
         var screen = "pin"
         var display = document.querySelectorAll(".display");
         var output = document.getElementById("output");
@@ -156,24 +156,21 @@
             document.getElementById("atmOption5").innerHTML = " ";
             document.getElementById("atmOption6").innerHTML = " ";
             document.getElementById("atmOption7").innerHTML = " ";
-            var pinRecords = [];
             pininput = Number(document.getElementById("pinCode").value);
             users.forEach(element => {
-                pinRecords.push(element.pin)
-            });
-            for (let index = 0; index < pinRecords.length; index++) {
-                const cardNum = pinRecords[index];
-                if (pininput == cardNum) {
-                    userAccount = users.find(users => users.pin == pininput);
-                    Dashboard();
-                    return true;
-                } else {
-                    alert("Invalid Pin")
-                    return false;
+                if (element.pin === pininput) {
+                    userAccount = element;
                 }
-            }       
-        }
-
+            }); 
+            if (userAccount) {
+                Dashboard();
+            } else {
+                if (pininput) {
+                    
+                    alert("Invalid Pin");
+                }
+            }
+        }    
         function Dashboard(){
             display[8].classList.add("hidden");
             display[1].classList.add("hidden");
@@ -194,8 +191,8 @@
             document.getElementById("atmOption7").innerHTML = " ";
         }
         
+        /*Deposit Screens*/
         function depositBoard(){
-            screen = "depositMoney";
             display[5].classList.add("hidden");
             display[2].classList.add("hidden");
             display[3].classList.remove("hidden");
@@ -213,15 +210,14 @@
             document.getElementById("atmOption7").innerHTML = " ";
         }
 
-        /*Deposit Screens*/
         function depositCheck(){
+            screen = "depositMoney";
             display[3].classList.add("hidden");
             display[4].classList.remove("hidden");
-            cashInput = Number(document.getElementById("cashDeposit").value);
-            userAccount.balance.Checking = userAccount.balance.Checking + cashInput;
-            output.innerHTML = "<p>Your balance is: </p>" +userAccount.balance.Checking;
             var next = document.getElementById("atmOption3");
-            next.onclick = depositOptions;
+            next.onclick = function(){
+                depositCalc('Checking');
+            };
             document.getElementById("atmOption0").innerHTML = " ";
             document.getElementById("atmOption1").innerHTML = " ";
             document.getElementById("atmOption2").innerHTML = " ";
@@ -230,16 +226,29 @@
             document.getElementById("atmOption5").innerHTML = " ";
             document.getElementById("atmOption6").innerHTML = " ";
             document.getElementById("atmOption7").innerHTML = " ";
-        }    
+        }
+
+        function depositCalc(account) {
+            cashInput = Number(document.getElementById("cashDeposit").value);
+            userAccount.balance[account] += cashInput;
+            output.innerHTML = "<p>Depsit was successful. Your "+ account +" balance is: </p>" + userAccount.balance[account];
+
+            setTimeout(() => {
+                output.innerHTML = '';
+                document.getElementById("cashDeposit").value = '';
+                depositOptions();
+            }, 2000);            
+        } 
 
         function depositSaving(){
+            screen = "depositMoney";
             display[3].classList.add("hidden");
             display[4].classList.remove("hidden");
-            cashInput = Number(document.getElementById("cashDeposit").value);
-            userAccount.balance.Savings = userAccount.balance.Savings + cashInput;
-            output.innerHTML = "<p>Your balance is: " +userAccount.balance.Savings;
+           
             var next = document.getElementById("atmOption3");
-            next.onclick = depositOptions;
+            next.onclick = function(){
+                depositCalc('Savings');
+            };
             document.getElementById("atmOption0").innerHTML = " ";
             document.getElementById("atmOption1").innerHTML = " ";
             document.getElementById("atmOption2").innerHTML = " ";
