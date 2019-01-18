@@ -193,6 +193,7 @@
         
         /*Deposit Screens*/
         function depositBoard(){
+            display[4].classList.add("hidden");
             display[5].classList.add("hidden");
             display[2].classList.add("hidden");
             display[3].classList.remove("hidden");
@@ -237,7 +238,7 @@
                 output.innerHTML = '';
                 document.getElementById("cashDeposit").value = '';
                 depositOptions();
-            }, 2000);            
+            }, 3000);            
         } 
 
         function depositSaving(){
@@ -391,7 +392,6 @@
 
         function withdrawProcessSavings(value){
             var output1 = document.getElementById("output1");
-            console.log("I ran")
             output1.innerHTML = "Your balance is: " +userAccount.balance.Savings;
             userAccount.balance.Savings = userAccount.balance.Savings - value;
             output1.innerHTML = "<p>You have witdrawn: " + value;
